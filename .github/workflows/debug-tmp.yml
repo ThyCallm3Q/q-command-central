@@ -1,0 +1,18 @@
+name: debug-tmp
+on: workflow_dispatch
+jobs:
+  d:
+    runs-on: ubuntu-latest
+    steps:
+      - run: python -m pip install -q "yt-dlp[default]"
+      - run: |
+          V=qhBjbWvBfbg
+          for args in "" "--extractor-args youtube:player_client=tv_simply" "--extractor-args youtube:player_client=web_embedded" "--extractor-args youtube:player_client=android_vr" "--extractor-args youtube:player_client=mweb" "--extractor-args youtube:player_skip=webpage"; do
+            echo "=== $args"
+            python -m yt_dlp --js-runtimes node --skip-download -j $args -- "https://www.youtube.com/watch?v=$V" 2>/tmp/e | python -c "import json,sys;d=json.load(sys.stdin);print('views',d.get('view_count'),'likes',d.get('like_count'))" || tail -2 /tmp/e
+          done
+          echo "=== shorts url"
+          python -m yt_dlp --js-runtimes node --skip-download -j "https://www.youtube.com/shorts/$V" 2>/tmp/e | python -c "import json,sys;d=json.load(sys.stdin);print('views',d.get('view_count'),'likes',d.get('like_count'))" || tail -2 /tmp/e
+          echo "=== rss"; curl -s -o /dev/null -w "%{http_code}\n" "https://www.youtube.com/feeds/videos.xml?channel_id=UCJnEHmsTXfSJw6abv5bnhwA"
+          echo "=== watch page"; curl -s -A "Mozilla/5.0" "https://www.youtube.com/watch?v=$V" | grep -o '"likeCount[^,]*\|"viewCount":"[0-9]*"\|confirm you.re not a bot\|accessibilityText":"[^"]*like[^"]*"' | head -5
+          echo "=== shorts page"; curl -s -A "Mozilla/5.0" "https://www.youtube.com/shorts/$V" | grep -o '"viewCount":"[0-9]*"\|confirm you.re not a bot\|accessibilityText":"[^"]*like[^"]*"' | head -5
