@@ -4,96 +4,96 @@
   "url": "https://www.youtube.com/@HandyLittleHacks",
   "channelId": "UCJnEHmsTXfSJw6abv5bnhwA",
   "videoCount": 10,
-  "totalViews": 1343,
+  "totalViews": 1349,
   "viewsMissing": 0,
   "totalLikes": 21,
   "likesMissing": 0,
   "sharesManual": null,
-  "updated": "2026-10-23T11:40:53-05:00",
-  "updatedCT": "Oct 23, 2026 11:40 AM CT",
-  "fetchedAt": "2026-10-23T16:40:53Z",
+  "updated": "2026-10-23T12:14:11-05:00",
+  "updatedCT": "Oct 23, 2026 12:14 PM CT",
+  "fetchedAt": "2026-10-23T17:14:11Z",
   "fetchedBy": "box",
-  "method": "yt-dlp channel listing + per-video yt-dlp (public counts)",
+  "method": "yt-dlp channel listing + per-video page (public counts)",
   "videos": [
     {
       "id": "abfamp1s3Fc",
       "title": "Shibori Indigo Tie-Dye (Easy DIY) #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 42,
       "likes": 1,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "Jnf7MTy5fmo",
       "title": "Perfect Avocado Toast in 5 Minutes #shorts",
-      "uploadDate": "20261023",
-      "views": 5,
+      "uploadDate": "20261022",
+      "views": 7,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "fVH254MrDmM",
       "title": "How to Make a Paper Boat (Easy Craft) #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 9,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "14iAmcaEJj8",
       "title": "Fold & Organize Clothes for Neat Drawers #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 8,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "nEzhdoJLs8I",
       "title": "Peel Garlic in Seconds With a Knife #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 4,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "x9s9phKrd5c",
       "title": "Juicy Pan-Seared Chicken Breast (Stovetop) #shorts",
-      "uploadDate": "20261023",
-      "views": 9,
+      "uploadDate": "20261022",
+      "views": 13,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "Xc9wwd4P5n4",
       "title": "Easy All-Purpose Chicken Seasoning Blend #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 15,
       "likes": 1,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "qhBjbWvBfbg",
       "title": "Streak-Free Mirrors with Just 2 Ingredients #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 720,
       "likes": 8,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "-i-NCvamlro",
       "title": "Clean Your Microwave in 5 Min: Lemon Hack #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 497,
       "likes": 8,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "VIACWYGt8ZU",
       "title": "DIY Candles at Home for Just a Few Dollars #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 34,
       "likes": 3,
-      "src": "yt-dlp"
+      "src": "page"
     }
   ]
 }
