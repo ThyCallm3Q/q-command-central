@@ -10,6 +10,7 @@ Env: STATS_OUT=path overrides the output file. Fallback when yt-dlp is blocked: 
 public RSS feed (views only; its starRating count is NOT the real like count, so likes stay null).
 If nothing at all can be fetched, the previous file is left untouched and the script exits 1."""
 import json, os, shutil, subprocess, sys, datetime, urllib.request
+import re, html as htmlmod
 import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo
 
@@ -33,15 +34,61 @@ def list_tab(tab):
     print(f'  {tab}: {len(ids)} found')
     return ids
 
+def _int(x):
+    try: return int(str(x).replace(',', ''))
+    except Exception: return None
+
+def page_meta(vid):
+    """Read the public Shorts/watch page HTML. Works even when YouTube blocks yt-dlp's player
+    requests from datacenter IPs (GitHub runners), because the page still embeds microformat
+    viewCount/likeCount and the like-button text. Only exact integers are accepted."""
+    for url in (f'https://www.youtube.com/shorts/{vid}', f'https://www.youtube.com/watch?v={vid}'):
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0', 'Accept-Language': 'en-US,en;q=0.9'})
+            html = urllib.request.urlopen(req, timeout=30).read().decode('utf-8', 'replace')
+        except Exception:
+            continue
+        ch = re.search(r'"externalChannelId":"(UC[\w-]{22})"', html) or re.search(r'"channelId":"(UC[\w-]{22})"', html)
+        if ch and ch.group(1) != CHANNEL_ID:
+            return None
+        views = likes = None
+        m = re.search(r'"viewCount":"(\d+)"', html)
+        if m: views = int(m.group(1))
+        m = re.search(r'"likeCount":"(\d+)"', html)
+        if m: likes = int(m.group(1))
+        if likes is None:
+            m = re.search(r'"value":\{"simpleText":"([\d,]+)"\},"label":\{"simpleText":"Likes?"\}', html)
+            if m: likes = _int(m.group(1))
+        if likes is None:
+            m = re.search(r'like this video along with ([\d,]+) other (?:people|person)', html)
+            if m: likes = _int(m.group(1))
+        if likes is None and re.search(r'"accessibilityText":"No likes"', html):
+            likes = 0
+        t = re.search(r'<meta name="title" content="([^"]*)"', html)
+        d = re.search(r'"uploadDate":"(\d{4})-(\d{2})-(\d{2})', html)
+        if views is not None or likes is not None:
+            return {'id': vid, 'title': htmlmod.unescape(t.group(1)) if t else None,
+                    'uploadDate': ''.join(d.groups()) if d else None, 'views': views, 'likes': likes}
+    return {'id': vid, 'views': None, 'likes': None}
+
 def video_meta(vid):
     code, out, err = run(['--skip-download', '-j', '--', f'https://www.youtube.com/watch?v={vid}'])
     if code != 0 or not out.strip():
-        print(f'  {vid}: metadata failed'); return {'id': vid, 'views': None, 'likes': None}
+        m = page_meta(vid)
+        if m is None: return None
+        m['src'] = 'page'
+        print(f'  {vid}: yt-dlp blocked -> page: views={m["views"]} likes={m["likes"]}')
+        return m
     d = json.loads(out)
     if d.get('channel_id') and d['channel_id'] != CHANNEL_ID:
         return None
-    return {'id': vid, 'title': d.get('title'), 'uploadDate': d.get('upload_date'),
-            'views': d.get('view_count'), 'likes': d.get('like_count')}
+    m = {'id': vid, 'title': d.get('title'), 'uploadDate': d.get('upload_date'),
+         'views': d.get('view_count'), 'likes': d.get('like_count'), 'src': 'yt-dlp'}
+    if m['likes'] is None or m['views'] is None:   # yt-dlp leaves likes null at 0 likes; ask the page
+        p = page_meta(vid) or {}
+        if m['likes'] is None: m['likes'] = p.get('likes')
+        if m['views'] is None: m['views'] = p.get('views')
+    return m
 
 def rss_videos():
     """Public RSS feed: last ~15 uploads, media:statistics views. Likes left null on purpose."""
@@ -71,7 +118,8 @@ def main():
         for v in list_tab(tab):
             if v not in ids: ids.append(v)
     vids = [m for m in (video_meta(v) for v in ids) if m]
-    method = 'yt-dlp: --flat-playlist on /shorts + /videos, then per-video metadata'
+    srcs = sorted({m.get('src') for m in vids if m.get('src')})
+    method = 'yt-dlp channel listing + per-video ' + (' / '.join(srcs) or 'metadata') + ' (public counts)'
     if not vids or all(m['views'] is None for m in vids):
         print('yt-dlp got nothing usable, trying public RSS feed…')
         vids = rss_videos(); ids = [m['id'] for m in vids]
