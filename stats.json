@@ -4,64 +4,64 @@
   "url": "https://www.youtube.com/@HandyLittleHacks",
   "channelId": "UCJnEHmsTXfSJw6abv5bnhwA",
   "videoCount": 10,
-  "totalViews": 551,
+  "totalViews": 562,
   "viewsMissing": 0,
   "totalLikes": 19,
   "likesMissing": 0,
   "sharesManual": null,
-  "updated": "2026-10-23T00:38:52-05:00",
-  "updatedCT": "Oct 23, 2026 12:38 AM CT",
-  "fetchedAt": "2026-10-23T05:38:52Z",
+  "updated": "2026-10-23T00:40:11-05:00",
+  "updatedCT": "Oct 23, 2026 12:40 AM CT",
+  "fetchedAt": "2026-10-23T05:40:11Z",
   "fetchedBy": "github-action",
   "method": "yt-dlp channel listing + per-video page (public counts)",
   "videos": [
     {
       "id": "abfamp1s3Fc",
       "title": "Shibori Indigo Tie-Dye (Easy DIY) #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 0,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "Jnf7MTy5fmo",
       "title": "Perfect Avocado Toast in 5 Minutes #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 1,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "fVH254MrDmM",
       "title": "How to Make a Paper Boat (Easy Craft) #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 4,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "14iAmcaEJj8",
       "title": "Fold & Organize Clothes for Neat Drawers #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 2,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "nEzhdoJLs8I",
       "title": "Peel Garlic in Seconds With a Knife #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 1,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "x9s9phKrd5c",
       "title": "Juicy Pan-Seared Chicken Breast (Stovetop) #shorts",
-      "uploadDate": "20261023",
+      "uploadDate": "20261022",
       "views": 0,
       "likes": 0,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "Xc9wwd4P5n4",
@@ -69,23 +69,23 @@
       "uploadDate": "20261022",
       "views": 1,
       "likes": 1,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "qhBjbWvBfbg",
       "title": "Streak-Free Mirrors with Just 2 Ingredients #shorts",
       "uploadDate": "20261022",
-      "views": 259,
+      "views": 264,
       "likes": 7,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "-i-NCvamlro",
       "title": "Clean Your Microwave in 5 Min: Lemon Hack #shorts",
       "uploadDate": "20261022",
-      "views": 264,
+      "views": 270,
       "likes": 8,
-      "src": "yt-dlp"
+      "src": "page"
     },
     {
       "id": "VIACWYGt8ZU",
@@ -93,7 +93,7 @@
       "uploadDate": "20261022",
       "views": 19,
       "likes": 3,
-      "src": "yt-dlp"
+      "src": "page"
     }
   ]
 }
