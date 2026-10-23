@@ -38,10 +38,19 @@ jobs:
           git add stats.json
           if git diff --cached --quiet; then echo "No change"; exit 0; fi
           git commit -m "Refresh stats.json (Action)"
+          ts() { python -c 'import json,sys
+          try: d=json.load(sys.stdin); print(d.get("fetchedAt") or d.get("updated") or "")
+          except Exception: print("")'; }
           for i in 1 2 3; do
-            git push && break
-            git pull --rebase -X theirs origin main || { git rebase --abort; exit 1; }
+            git push && exit 0
+            git fetch origin main
+            MINE=$(date -d "$(ts < stats.json)" +%s 2>/dev/null || echo 0)
+            THEIRS=$(date -d "$(git show origin/main:stats.json | ts)" +%s 2>/dev/null || echo 0)
+            # newer fetchedAt wins (during rebase "ours" = GitHub's copy, "theirs" = this commit)
+            if [ "$THEIRS" -gt "$MINE" ]; then STRAT=ours; else STRAT=theirs; fi
+            git rebase -X "$STRAT" origin/main || { git rebase --abort; exit 1; }
           done
+          exit 1
 
       - name: Request Pages build
         env:
